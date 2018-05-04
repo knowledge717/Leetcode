@@ -1,0 +1,28 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        String[] strings=s.split("");
+        int i=0,j=strings.length-1;
+        boolean left=false;
+        boolean right=false;
+        
+        while(i<j)
+        {
+            //ÊÇ·ñÎªÊý×Ö×ÖÄ¸
+           left=(Character.isDigit(strings[i].charAt(0))||Character.isLetter(strings[i].charAt(0)) );
+           right=(Character.isDigit(strings[j].charAt(0))||Character.isLetter(strings[j].charAt(0)));
+           if(!left) i++;
+            if(!right) j--;
+            if(left&&right) {
+                if(!strings[i].equalsIgnoreCase(strings[j]))
+                return false;
+            else {
+                i++;
+                j--;
+            }
+            }
+                
+            
+        }
+        return true;
+    }
+}
