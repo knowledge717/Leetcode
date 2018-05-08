@@ -1,0 +1,33 @@
+class Solution {
+    int parseInt(char i)
+    {
+        switch(i)
+        {
+            case 'I':return 1;
+            case 'V':return 5;
+            case 'X':return 10;
+            case 'L':return 50;
+            case 'C':return 100;
+            case 'D':return 500;
+            case 'M':return 1000;
+            default:return 0;
+        }
+    }
+    public int romanToInt(String s) {
+        int array[]=new int[s.length()];
+        int sum=0;
+        array[0]=parseInt(s.charAt(0));
+        if(s.length()==1) return array[0];
+        for(int i=1;i<s.length();i++)
+        {
+            array[i]=parseInt(s.charAt(i));
+			//比较前后两者的大小决定前者的正负
+            if(array[i]>array[i-1])
+                sum-=array[i-1];
+            else
+                sum+=array[i-1];
+        }
+        return sum+array[s.length()-1];
+    }
+}
+//缺点在于本题没有讨论非法罗马字符
