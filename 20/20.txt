@@ -1,0 +1,64 @@
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack=new Stack<Character>();
+        char ch;
+        for(int i=0;i<s.length();i++)
+        {
+            ch=s.charAt(i);
+            if(ch=='{'|| ch=='(' || ch=='[')
+                stack.push(ch);
+            else if(ch=='}')
+            {
+                if(!(stack.empty()) && stack.peek()=='{' )
+                    stack.pop();
+                else return false;
+            }
+            else if(ch==')')
+            {
+                if(!(stack.empty()) &&stack.peek()=='(' )
+                    stack.pop();
+                else return false;
+            }
+            else if(ch==']')
+            {
+                if(!(stack.empty())&&stack.peek()=='[' )
+                    stack.pop();
+                else return false;
+            }
+        
+        }
+        if(stack.empty()) return true;
+        else return false;
+    }
+}
+//首先想到的就是栈的思想。
+
+特别注意输入为']'
+
+
+优化：使用键值对，减少大量的if-else
+Key为左部分，value为右部分；
+如果当前字符为key值压入栈，否则出栈的字符（key）是否与当前字符（value）成对
+class Solution {
+    private static final Map<Character, Character> map =new HashMap<Character, Character>() {
+        {
+            put('(', ')');
+            put('{', '}');
+            put('[', ']');
+        }};
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                stack.push(c);
+            } 
+			//栈判空：针对没有出现左字符，直接右字符
+            else if (stack.empty() || map.get(stack.pop()) != c) 
+            {
+                return false;
+            }
+        }
+		//配对
+        return stack.empty();
+    }
+}
