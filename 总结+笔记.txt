@@ -1,3 +1,4 @@
 14.总结一下长度
 数组长度length
 字符串长度length()
+38.使用StringBuilder的append方法比String的+=方法更有效率
